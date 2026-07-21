@@ -1,6 +1,6 @@
 import os
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator, Dict, Optional
+from typing import Any, AsyncGenerator, Dict, Optional
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
@@ -58,7 +58,7 @@ def metrics() -> PlainTextResponse:
 
 # 5. Business Logic Core Gateway Endpoint
 @app.post("/ingest", tags=["Ingestion Framework"], status_code=status.HTTP_202_ACCEPTED)
-async def ingest_document(payload: IngestRequest) -> Dict[str, any]:
+async def ingest_document(payload: IngestRequest) -> Dict[str, Any]:
     """Validates raw text payload metadata and appends tasks directly onto a Redis Stream log."""
     if not state.redis_client:
         raise HTTPException(status_code=500, detail="Storage engine connection down")

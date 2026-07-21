@@ -6,7 +6,9 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .venv/
-poetry.lock
+
+# OS Files
+.DS_Store
 
 # Environment
 .env

@@ -16,6 +16,22 @@ services:
       redis:
         condition: service_healthy
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m app.worker
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./app:/workspace/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+
+
   redis:
     image: redis:7-alpine
     ports:
